@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
 
     <script>
-        // Your web app's Firebase configuration
+        // CONFIGURACION DE FIREBASE
         var firebaseConfig = {
             apiKey: "AIzaSyCzjGZvXLqTgOYbWcXwEOmMle7VrL1MZTo",
             authDomain: "rfid-reader-unav.firebaseapp.com",
@@ -23,25 +23,24 @@
             messagingSenderId: "684010082778",
             appId: "1:684010082778:web:f02157c368ad6699eef0e3"
         };
-
-        // Initialize Firebase
+        // INICIALIZACION DE FIREBASE
         firebase.initializeApp(firebaseConfig);
     </script>
 </head>
 
 <body>
-    <h1 class="raceName">XVII RACE NAME</h1>
-    <h4 class="raceDate">SUNDAY 27TH FEBRUARY 2021</h4>
-    <div><button id="button" onclick="getData()">Get Data from Firebase</button></div>
+    <h1 class="raceName">CARRERA DE PRUEBA</h1>
+    <h4 class="raceDate">DOMINGO 1 DE MAYO 2022</h4>
+    <div><button id="button" onclick="getData()">EMPEZAR SIMULACIÓN</button></div>
     <div class="footer">
             <a href="index.html" class="links"><img src="Track light.png" class="linkImg" alt=""></a>
             <a href="#" class="links active"><img src="Leaderboard dark.png" class="linkImg" alt=""></a>
     </div>
     <div id="leaderboard">
-<div>Waiting for Internet...</div>
+    <div>Esperando conexión...</div>
     </div>
+
     <script src="HackTimer.js"></script>
     <script src="leaderboard.js"></script>
 </body>
-
 </html>
