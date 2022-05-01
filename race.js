@@ -246,7 +246,7 @@ function fRunner() {
     ctx.stroke()
     ctx.fillStyle = "black"
     ctx.font = "20px Arial"
-    ctx.fillText("CHECKPOINT 1", (parseInt(cell[y * i]['x']) + xoffset) / zoomFactor - 100, 580 - (parseInt(cell[y * i]['y']) + yoffset + 30) / zoomFactor + 5)
+    ctx.fillText("CHECKPOINT 1", (parseInt(cell[y * i]['x']) + xoffset) / zoomFactor - 160, 580 - (parseInt(cell[y * i]['y']) + yoffset + 30) / zoomFactor + 5)
 
     // PUNTO DE CONTROL 2
     i = checkPoints[2]
@@ -257,7 +257,7 @@ function fRunner() {
     ctx.stroke()
     ctx.fillStyle = "black"
     ctx.font = "20px Arial"
-    ctx.fillText("CHECKPOINT 2", (parseInt(cell[y * i]['x']) + xoffset) / zoomFactor + 20, 580 - (parseInt(cell[y * i]['y']) + yoffset + 20) / zoomFactor + 5)
+    ctx.fillText("CHECKPOINT 2", (parseInt(cell[y * i]['x']) + xoffset) / zoomFactor + 15, 580 - (parseInt(cell[y * i]['y']) + yoffset + 20) / zoomFactor + 5)
 
     // PUNTO DE CONTROL 3
     i = checkPoints[3]
