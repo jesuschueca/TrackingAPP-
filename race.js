@@ -55,7 +55,7 @@ else {
     thirdRunner1 = 0
     finish2 = 0
     finish3 = 0
-    speed = 3
+    speed = 10
 }
 
 // OBTENER LOS DATOS DE LA CARRERA
