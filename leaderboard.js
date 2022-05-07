@@ -1,21 +1,21 @@
 // DECLARACION DE VARIABLES
-var Timer1 = setInterval(firstRunner1,1000);
-var Timer = setInterval(Time,500);
-var reader1_Timings = []
-var reader2_Timings = []
-var reader3_Timings = []
-var raceStartTime
-var finish2 = 0
-var finish3 = 0
+var speed;
 var firstRunner
 var secondRunner
 var thirdRunner
 var finish2
 var finish3
-var speed
-var time
 cell=[]
 cell.length = 2412;
+var reader1_Timings = []
+var reader2_Timings = []
+var reader3_Timings = []
+var time
+var raceStartTime
+var Timer = setInterval(Time,500);
+var finish2 = 0
+var finish3 = 0
+var Timer1 = setInterval(firstRunner1,1000);
 
 // FUNCION PARA PASAR DE MILISEGUNDOS A MINUTOS Y SEGUNDOS
 function millisToMinutesAndSeconds(millis) {
@@ -50,7 +50,7 @@ else {
     thirdRunner = 0;
     finish2 = 0
     finish3 = 0
-    speed = 1
+    speed = 10
 }
 
 // DETERMINA EL TIEMPO DE INICIO DE LA CARRERA CUANDO SE PULSA EL BOTON DE EMPEZAR SIMULACION
@@ -97,7 +97,7 @@ function getFirebaseDataon() {
         runnerdelays = []
         inbox = data.val()
 
-        // OBTIENE LOS KEY-VALUES DEL JSON DE INBOX
+
         Object.keys(inbox).forEach((key) => {
             keys.push(key)
             if (inbox[key].includes("Reader 3")) {
@@ -119,21 +119,21 @@ function getFirebaseDataon() {
 // FUNCION QUE COMPRUEBA LA INFORMACION DE LA PARTE DE INBOX (INFORMACION DE LOS ARDUINOS)
 function firstRunner1() {
     var reader1_Timings = []
-    var reader2_Timings = []
     var reader3_Timings = []
+    var reader2_Timings = []
     var readerPositions = []
-    runnerdelays = []
     pName = []
     pClub = []
+
 
     // DETERMINA LA SINCRONIZACION DEL ARDUINO 0
     arduino0 = parseInt(reader0[0].slice(22)) * 1000 + parseInt(reader0[0].slice(36))
     reader0sync = arduino0 + new Date("Mar 31, 1900").getTime();
 
     // DETERMINA LA SINCRONIZACION DEL ARDUINO 3 Y LA POSICION DE LOS CORREDORES
-    arduino3 = parseInt(reader3Inbox[0].slice(22)) * 1000 + parseInt(reader3Inbox[0].slice(36))
+    arduino3 = parseInt(reader3Inbox[0].slice(22)) * 1000 + parseInt(reader3Inbox[0].slice(36)) //change this
     reader3sync = arduino3 + new Date("Mar 31, 1900").getTime();
-    for (i = 1; i <= reader3Inbox.length - 1; i++) {
+    for (i = 1; i <= reader3Inbox.length - 1; i++) { //Change This
         let t = reader3Inbox[i].slice(21, 31)
         let ms = Number(t.split(':')[0]) * 60 * 60 * 1000 + Number(t.split(':')[1]) * 60 * 1000 + Number(t.split(':')[2]) * 1000 + Number(t.split(':')[3]);
         reader3_Timings.push(ms);
@@ -175,11 +175,10 @@ function firstRunner1() {
         readerPositions.forEach((c) => {
             if (!uniquePositions.includes(c)) {
                 uniquePositions.push(c);
-                pName.push(participants[c]["Nombre"] + " " + participants[c]["Apellido"])
-                pClub.push(participants[c]["Equipo"])
+                pName.push(participants[c]["Name"] + " " + participants[c]["Surname"])
+                pClub.push(participants[c]["Club"])
             }
-        }
-        )
+        })
 
         // CREA LOS ELEMENTOS PARA LA CLASIFICACION
         document.getElementById("leaderboard").innerHTML = ""
@@ -214,6 +213,7 @@ function firstRunner1() {
         }
 
         // CALCULA LA DIFERENCIA DE TIEMPOS CON EL PRIMER CLASIFICADO
+        runnerdelays = []
         runnerdelays.push(raceStartTime)
         for (i = 1; i < reader1_Timings.length; i++) {
             if (time >= reader3_Timings[i]) {
@@ -229,7 +229,6 @@ function firstRunner1() {
                 runnerdelays.push(0)
             }
         }
-
         // AÑADE EL RESTO DE PARTICIPANTES A LA CLASICIACION
         for (i = 1; i < participants.length - 1; i++) {
             const div = document.createElement("div");
@@ -262,10 +261,14 @@ function firstRunner1() {
     }
 }
 
-// LLAMA A LA FUNCION
+// LLAMA A LA FUNCION FIRSTRUNNER1
+//var Timer1 = setInterval(firstRunner1,1000);
 firstRunner1()
 
-// LLAMA A LA FUNCION
+// var finish2 = 0
+// var finish3 = 0
+
+// LLAMA A LA FUNCION GETFIREBASEDATAON
 getFirebaseDataon()
 
 // SE SIGUE ACTUALIZANDO LA POSICION DE LOS PUNTOS PARA QUE NO SE PIERDA AL CAMBIAR DE PESTAÑA
@@ -285,14 +288,12 @@ function fRunner() {
         if (firstRunner1 < checkPoints[2] * y && time >= reader2_Timings[0]) {
             firstRunner1 = checkPoints[2] * y
         }
-
         if ((firstRunner1 <= checkPoints[3] * y - 10) && time >= reader2_Timings[0]) {
             firstRunner1 += 1;
         }
         if (time >= reader3_Timings[0]) {
             firstRunner1 = cell.length - 1
         }
-
         if (secondRunner1 <= checkPoints[1] * y) {
             secondRunner1 += .9
             if (time >= reader1_Timings[1]) {
@@ -347,7 +348,7 @@ function fRunner() {
 const render1 = setInterval(fRunner, (600000 / ((cell.length - 1) / 3)) / speed)
 
 // PARA LOS LOOPS CUANDO LA CARRERA HA FINALIZADO
-if (time >= reader3_Timings[participants.length - 2]) {
+if (time >= reader3_Timings[participants.length - 2]) { //change this
     clearInterval(render1)
     clearInterval(Timer);
     clearInterval(Timer1);
